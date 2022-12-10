@@ -1,8 +1,6 @@
 // import { client } from '../main/bot.js';
 import { requests } from '../game/requests.js';
 
-const date = new Date();
-
 export async function execute(interaction) {
     let userId;
     if (interaction.data.type === 1 && interaction.data.options) {
@@ -24,7 +22,7 @@ export async function execute(interaction) {
             name: `${requestingUser.username} challenges ${challengedUser.username} to a duel!`,
             icon_url: requestingUser.avatarURL
         },
-        description: `Do you accept the challenge? You have <t:${((date.getTime() + 60000) / 1000) | 0}:R> to accept.`
+        description: `Do you accept the challenge? You have <t:${((Date.now() + 60000) / 1000) | 0}:R> to accept.`
     };
 
     const expiredTimeout = setTimeout(async () => {
@@ -46,7 +44,7 @@ export async function execute(interaction) {
     }, 60000);
 
     await interaction.createMessage({
-        content: `||<@!${challengedUser.id}>||`,
+        // content: `||<@!${challengedUser.id}>||`,
         embeds: [ embed ],
         components: [{
             type: 1,
@@ -62,5 +60,5 @@ export async function execute(interaction) {
     });
 
     console.log(interaction);
-    clearInterval(expiredTimeout);
+    // clearInterval(expiredTimeout);
 }

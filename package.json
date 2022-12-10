@@ -1,0 +1,15 @@
+{
+  "name": "textstars",
+  "main": "src/main/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node .",
+    "create-interactions": "node scripts/createInteractions.js"
+  },
+  "author": "Two",
+  "dependencies": {
+    "discord-hybrid-sharding": "^1.7.5",
+    "dotenv": "^16.0.3",
+    "eris": "^0.17.1"
+  }
+}

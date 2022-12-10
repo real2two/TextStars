@@ -1,8 +1,8 @@
-import { requests } from '../game/requests.js';
+import { requests, duels } from '../game/data.js';
 
 export async function execute(interaction) {
     const challengeId = interaction.data.custom_id.slice('challenge-'.length);
-    const [ _guildId, requestedUserId, challengedUserId ] = challengeId.split(':');
+    const [ _guildId, _requestedUserId, challengedUserId ] = challengeId.split(':');
 
     if (interaction.member.user.id !== challengedUserId) return interaction.createMessage({
         flags: 64,
@@ -10,12 +10,18 @@ export async function execute(interaction) {
     });
 
     const request = requests[challengeId];
-    if (!request) return interaction.createMessage({
-        content: 'An unexpected error has occured.'
-    });
+    if (!request || duels[challengeId]) return interaction.createMessage({ content: 'An unexpected error has occured.' });
     
+    duels[challengeId] = {
+        users: request.users,
+        data: []
+    };
+
     clearTimeout(request.timeout);
     delete requests[challengeId];
+    
+    const requestedUser = request.users[0];
+    const challengedUser = request.users[1];
 
     await interaction.editParent({
         embeds: [ { ...request.embed, color: 0x57F287, description: 'Challenge accepted!' } ],
@@ -32,10 +38,11 @@ export async function execute(interaction) {
             ]
         }]
     });
-    
+
     await interaction.createMessage({
         embeds: [{
-            description: `<@!${requestedUserId}> vs <@!${challengedUserId}>`
+            color: 0xFEE75C,
+            description: `<@!${requestedUser.id}> vs <@!${challengedUser.id}>`
         }]
     });
 }

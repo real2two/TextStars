@@ -10,8 +10,8 @@ export async function execute(interaction) {
         userId = interaction.data.target_id;
     }
 
-    const requestingUser = interaction.member.user;
-    const challengedUser = interaction.data.resolved.users.get(userId);
+    const requestingUser = { ...interaction.member.user };
+    const challengedUser = { ...interaction.data.resolved.users.get(userId) };
 
     requestingUser.team = getHouse(requestingUser.publicFlags);
     challengedUser.team = getHouse(challengedUser.publicFlags);

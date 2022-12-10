@@ -11,17 +11,50 @@ export async function execute(interaction) {
 
     const request = requests[challengeId];
     if (!request || duels[challengeId]) return interaction.createMessage({ content: 'An unexpected error has occured.' });
-    
-    duels[challengeId] = {
-        users: request.users,
-        data: []
-    };
 
     clearTimeout(request.timeout);
     delete requests[challengeId];
     
     const requestedUser = request.users[0];
     const challengedUser = request.users[1];
+
+    const data = [];
+    for (const { id, team } of request.users) {
+        switch (team) {
+            case 'bravery':
+                data.push({
+                    id,
+                    hp: 100, // health
+                    atk: 15, // attack
+                    def: 0, // defense
+                    acc: 50 // accuracy (%)
+                });
+                break;
+            case 'brilliance':
+                data.push({
+                    id,
+                    hp: 100,
+                    atk: 7,
+                    def: 2,
+                    acc: 90
+                });
+                break;
+            case 'balance':
+                data.push({
+                    id,
+                    hp: 100,
+                    atk: 10,
+                    def: 5,
+                    acc: 80
+                });
+                break;
+        }
+    }
+
+    duels[challengeId] = {
+        users: request.users,
+        data
+    };
 
     await interaction.editParent({
         embeds: [ { ...request.embed, color: 0x57F287, description: 'Challenge accepted!' } ],

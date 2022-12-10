@@ -30,6 +30,7 @@ export async function execute(interaction) {
     });
 
     const embed = {
+        color: 0x5865F2,
         author: {
             name: `${requestingUser.username} challenges ${challengedUser.username} to a duel!`,
             icon_url: requestingUser.avatarURL
@@ -42,7 +43,7 @@ export async function execute(interaction) {
         timeout: setTimeout(async () => {
             delete requests[challengeId];
             await interaction.editOriginalMessage({
-                embeds: [ { ...embed, description: 'The request has expired.' } ],
+                embeds: [ { ...embed, color: 0xED4245, description: 'The request has expired.' } ],
                 components: [{
                     type: 1,
                     components: [{

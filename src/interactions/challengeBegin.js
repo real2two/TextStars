@@ -18,7 +18,7 @@ export async function execute(interaction) {
     delete requests[challengeId];
 
     await interaction.editParent({
-        embeds: [ { ...request.embed, description: 'Challenge accepted!' } ],
+        embeds: [ { ...request.embed, color: 0x57F287, description: 'Challenge accepted!' } ],
         components: [{
             type: 1,
             components: [

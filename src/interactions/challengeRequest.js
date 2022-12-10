@@ -12,10 +12,22 @@ export async function execute(interaction) {
     const requestingUser = interaction.member.user;
     const challengedUser = interaction.data.resolved.users.get(userId);
 
-    if (requestingUser.id === challengedUser.id) return interaction.createMessage('You can\'t fight yourself.');
+    // if (requestingUser.id === challengedUser.id) return interaction.createMessage('You can\'t fight yourself.');
     if (challengedUser.bot) return interaction.createMessage('You can\'t fight a bot.');
 
     // interaction.createMessage('This player is already in a duel.');
+
+    const challengeId = `${interaction.guildId}:${requestingUser.id}:${challengedUser.id}`;
+
+    if (requests[challengeId]) return interaction.createMessage({
+        flags: 64,
+        content: 'You already requested to challenge this user recently.'
+    });
+
+    if (requests[`${interaction.guildId}:${challengedUser.id}:${requestingUser.id}`]) return interaction.createMessage({
+        flags: 64,
+        content: 'The requested challenger already requested to challenge you. Click \`Accept Challenge\` instead!'
+    });
 
     const embed = {
         author: {
@@ -25,7 +37,8 @@ export async function execute(interaction) {
         description: `Do you accept the challenge? You have <t:${((Date.now() + 60000) / 1000) | 0}:R> to accept.`
     };
 
-    const expiredTimeout = setTimeout(async () => {
+    requests[challengeId] = setTimeout(async () => {
+        delete requests[challengeId];
         await interaction.editOriginalMessage({
             embeds: [ { ...embed, description: 'The request has expired.' } ],
             components: [{
@@ -34,7 +47,7 @@ export async function execute(interaction) {
                     {
                         type: 2,
                         style: 3,
-                        custom_id: 'challenge_accept',
+                        custom_id: `challenge-${challengeId}`,
                         label: 'Accept challenge',
                         disabled: true
                     }
@@ -44,7 +57,7 @@ export async function execute(interaction) {
     }, 60000);
 
     await interaction.createMessage({
-        // content: `||<@!${challengedUser.id}>||`,
+        content: `||<@!${challengedUser.id}>||`,
         embeds: [ embed ],
         components: [{
             type: 1,
@@ -52,13 +65,10 @@ export async function execute(interaction) {
                 {
                     type: 2,
                     style: 3,
-                    custom_id: 'challenge_accept',
+                    custom_id: `challenge-${challengeId}`,
                     label: 'Accept challenge'
                 }
             ]
         }]
     });
-
-    console.log(interaction);
-    // clearInterval(expiredTimeout);
 }

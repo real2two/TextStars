@@ -17,14 +17,14 @@ export async function execute(interaction) {
 
     // interaction.createMessage('This player is already in a duel.');
 
-    const challengeId = `${interaction.guildId}:${requestingUser.id}:${challengedUser.id}`;
+    const challengeId = `${interaction.guildID}:${requestingUser.id}:${challengedUser.id}`;
 
     if (requests[challengeId]) return interaction.createMessage({
         flags: 64,
         content: 'You already requested to challenge this user recently.'
     });
 
-    if (requests[`${interaction.guildId}:${challengedUser.id}:${requestingUser.id}`]) return interaction.createMessage({
+    if (requests[`${interaction.guildID}:${challengedUser.id}:${requestingUser.id}`]) return interaction.createMessage({
         flags: 64,
         content: 'The requested challenger already requested to challenge you. Click \`Accept Challenge\` instead!'
     });
@@ -37,38 +37,37 @@ export async function execute(interaction) {
         description: `Do you accept the challenge? You have <t:${((Date.now() + 60000) / 1000) | 0}:R> to accept.`
     };
 
-    requests[challengeId] = setTimeout(async () => {
-        delete requests[challengeId];
-        await interaction.editOriginalMessage({
-            embeds: [ { ...embed, description: 'The request has expired.' } ],
-            components: [{
-                type: 1,
-                components: [
-                    {
+    requests[challengeId] = {
+        embed,
+        timeout: setTimeout(async () => {
+            delete requests[challengeId];
+            await interaction.editOriginalMessage({
+                embeds: [ { ...embed, description: 'The request has expired.' } ],
+                components: [{
+                    type: 1,
+                    components: [{
                         type: 2,
                         style: 3,
                         custom_id: `challenge-${challengeId}`,
                         label: 'Accept challenge',
                         disabled: true
-                    }
-                ]
-            }]
-        });
-    }, 60000);
+                    }]
+                }]
+            });
+        }, 60000)
+    }
 
     await interaction.createMessage({
         content: `||<@!${challengedUser.id}>||`,
         embeds: [ embed ],
         components: [{
             type: 1,
-            components: [
-                {
-                    type: 2,
-                    style: 3,
-                    custom_id: `challenge-${challengeId}`,
-                    label: 'Accept challenge'
-                }
-            ]
+            components: [{
+                type: 2,
+                style: 3,
+                custom_id: `challenge-${challengeId}`,
+                label: 'Accept challenge'
+            }]
         }]
     });
 }

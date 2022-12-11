@@ -62,6 +62,11 @@ export async function execute(interaction) {
         content: 'The requested challenger already requested to challenge you. Click \`Accept Challenge\` instead!'
     });
 
+    if (Object.entries(duels).find(([ k, v ]) => k.startsWith(`${interaction.guildID}:`) && v.channel === interaction.channel.id)) return interaction.createMessage({
+        flags: 64,
+        content: 'Failed to request to duel. There is an ongoing duel in the current channel.'
+    });
+
     const embed = {
         color: 0x5865F2,
         author: {

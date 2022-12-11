@@ -14,7 +14,9 @@ export async function findPrompt(value = '', { duel, user, opponent }) {
 
     const variables = {
         user: `<@!${user.id}>`,
-        opponent: `<@!${opponent.id}>`
+        opponent: `<@!${opponent.id}>`,
+        userTeam: user.team,
+        opponentTeam: opponent.team
     };
     
     const userData = duel.data.find(u => u.id === user.id);

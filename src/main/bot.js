@@ -6,7 +6,7 @@ export const client = new Eris(process.env.TOKEN, {
     lastShardID: Cluster.data.FIRST_SHARD_ID,
     maxShards: Cluster.data.TOTAL_SHARDS,
 
-    intents: [ Constants.Intents.guilds, Constants.Intents.guildMembers ]
+    intents: [ Constants.Intents.guilds, Constants.Intents.guildMembers, Constants.Intents.guildMessages ]
 });
 
 client.cluster = new Cluster.Client(client);
@@ -15,6 +15,7 @@ client.cluster.triggerReady();
 console.log(`[CLUSTER #${client.cluster.id}] Launched cluster.`);
 
 import('../events/interactionCreate.js');
+import('../events/messageCreate.js');
 
 client.on('error', err => {
     console.error(err);

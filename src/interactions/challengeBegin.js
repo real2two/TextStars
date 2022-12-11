@@ -2,7 +2,7 @@ import { requests, duels } from '../game/data.js';
 
 export async function execute(interaction) {
     const challengeId = interaction.data.custom_id.slice('challenge-'.length);
-    const [ guildId, _requestedUserId, challengedUserId ] = challengeId.split(':');
+    const [ _guildId, _requestedUserId, challengedUserId ] = challengeId.split(':');
 
     if (interaction.member.user.id !== challengedUserId) return interaction.createMessage({
         flags: 64,
@@ -63,7 +63,7 @@ export async function execute(interaction) {
 
     const duel = {
         channel: interaction.channel.id,
-        users: request.users,
+        fighters: request.users,
         info: {
             turn: Math.floor(Math.random() * 2) ? requestedUser.id : challengedUser.id
         },

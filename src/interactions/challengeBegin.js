@@ -37,7 +37,7 @@ export async function execute(interaction) {
                     hp: 100, // health
                     atk: 15, // attack
                     def: 0, // defense
-                    acc: 50 // accuracy (%)
+                    acc: 70 // accuracy (%)
                 });
                 break;
             case 'brilliance':

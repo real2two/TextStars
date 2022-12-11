@@ -1,5 +1,6 @@
 import { client } from '../main/bot.js';
 import { duels } from '../func/data.js';
+import { findPrompt } from '../db/client.js';
 
 client.on('messageCreate', async msg => {
     if (msg.member.user.bot) return;
@@ -11,11 +12,59 @@ client.on('messageCreate', async msg => {
     //if (!duel.fighters.find(u => u.id === msg.member.user.id)) return;
     if (msg.member.user.id !== duel.info.turn) return;
 
-    /* FORMULAS (work on game logic!)
-        - r_att = att + Math.floor(Math.random() * 5) - 2; // the attack value can only be a value inbetween (atk - 2) to (atk + 2) 
-        - damage = r_atk * r_atk / (r_atk + def) */
+    const user = duel.fighters.find(u => u.id === duel.info.turn);
+    const opponent = duel.fighters.find(u => u.id !== duel.info.turn) || user;
+
+    duel.info.turn = null;
+
+    const prompt = await findPrompt(msg.content, { duel, user, opponent });
+    if (!prompt) {
+        try {
+            duel.info.turn = user.id;
+            return msg.addReaction('❌');
+        } catch(err) {
+            return console.error(err);
+        }
+    } else {
+        try {
+            msg.addReaction('✅');
+        } catch(err) {
+            console.error(err);
+        }
+    }
 
     clearTimeout(duel.timer);
+
+    const userHp = duel.data.find(u => u.id === user.id).hp;
+    const opponentHp = duel.data.find(u => u.id === opponent.id).hp;
+    if (userHp <= 0 || opponentHp <= 0) {
+        let winnerPrompt;
+        if (userHp <= 0 && opponentHp <= 0) {
+            winnerPrompt = 'It\'s a tie!';
+        } else if (userHp <= 0) {
+            winnerPrompt = `<@!${opponent.id}> won the duel!`;
+        } else if (opponentHp <= 0) {
+            winnerPrompt = `<@!${user.id}> won the duel!`;
+        }
+        
+        delete duels[duel.id];
+
+        try {
+            await duel.editPrevious();
+            await client.createMessage(msg.channel.id, {
+                embeds: [{
+                    ...duel.generateEmbedTemplate(),
+                    color: 0x57F287,
+                    thumbnail: { url: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/crown_1f451.png' },
+                    description: `${prompt.content}\n\n${winnerPrompt}`
+                }]
+            });
+        } catch(err) {
+            console.error(err);
+        }
+        return;
+    }
+
     duel.timer = setTimeout(async () => {
         try {
             delete duels[duel.id];
@@ -34,19 +83,18 @@ client.on('messageCreate', async msg => {
         }
     }, 30000);
 
-    duel.info.turn = duel.fighters.find(u => u.id !== duel.info.turn) ? duel.fighters.find(u => u.id !== duel.info.turn).id : duel.info.turn;
+    duel.info.turn = opponent.id;
 
     const embed = {
         ...duel.generateEmbedTemplate(),
         thumbnail: { url: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/53/crossed-swords_2694.png' },
-        description: 'test\n\n' +
+        description: `${prompt.content}\n\n` +
                      `It's now <@!${duel.info.turn}>'s turn.\n` +
                      `<@!${duel.info.turn}> has to use a move <t:${((Date.now() + 30000) / 1000) | 0}:R>.`,
     };
 
-    await duel.editPrevious();
-
     try {
+        await duel.editPrevious();
         const message = await client.createMessage(msg.channel.id, { embeds: [ embed ] });
         duel.editPrevious = () => message.edit({
             embeds: [{

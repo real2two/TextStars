@@ -23,10 +23,10 @@ export async function execute(interaction) {
         });
     }
 
-    // if (requestingUser.id === challengedUser.id) return interaction.createMessage({
-    //     flags: 64,
-    //     content: 'You can\'t fight yourself.'
-    // });
+    if (requestingUser.id === challengedUser.id) return interaction.createMessage({
+        flags: 64,
+        content: 'You can\'t fight yourself.'
+    });
 
     if (challengedUser.bot) return interaction.createMessage({
         flags: 64,

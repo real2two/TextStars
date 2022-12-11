@@ -5,12 +5,14 @@ specifiers:
   dotenv: ^16.0.3
   eris: ^0.17.1
   mongodb: ^4.12.1
+  random-number: ^0.0.9
 
 dependencies:
   discord-hybrid-sharding: 1.7.5
   dotenv: 16.0.3
   eris: 0.17.1
   mongodb: 4.12.1
+  random-number: 0.0.9
 
 packages:
 
@@ -943,6 +945,10 @@ packages:
   /punycode/2.1.1:
     resolution: {integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==}
     engines: {node: '>=6'}
+    dev: false
+
+  /random-number/0.0.9:
+    resolution: {integrity: sha512-ipG3kRCREi/YQpi2A5QGcvDz1KemohovWmH6qGfboVyyGdR2t/7zQz0vFxrfxpbHQgPPdtVlUDaks3aikD1Ljw==}
     dev: false
 
   /saslprep/1.0.3:

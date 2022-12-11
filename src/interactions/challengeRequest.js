@@ -98,7 +98,7 @@ export async function execute(interaction) {
     }
 
     await interaction.createMessage({
-        content: `||<@!${challengedUser.id}> <@!${client.user.id}>||`,
+        content: `||<@!${client.user.id}> <@!${challengedUser.id}>||`,
         embeds: [ embed ],
         components: [{
             type: 1,

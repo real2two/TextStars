@@ -1,3 +1,4 @@
+import rn from 'random-number';
 import { MongoClient } from 'mongodb';
 
 export const client = new MongoClient(process.env.MONGODB_URI);
@@ -26,6 +27,16 @@ export async function findPrompt(value = '', { duel, user, opponent }) {
         const action = prompt.actions[current];
         let didGoto = false;
 
+        variables['userHP'] = userData.hp;
+        variables['userATK'] = userData.atk;
+        variables['userDEF'] = userData.def;
+        variables['userACC'] = userData.acc;
+
+        variables['opponentHP'] = opponentData.hp;
+        variables['opponentATK'] = opponentData.atk;
+        variables['opponentDEF'] = opponentData.def;
+        variables['opponentACC'] = opponentData.acc;
+
         switch (action.action) {
             case 'addMessage':
                 let content = action.content;
@@ -35,14 +46,13 @@ export async function findPrompt(value = '', { duel, user, opponent }) {
                 fullContent += content;
                 break;
             case 'damageOpponent':
-                // const r_atk = att + Math.floor(Math.random() * 5) - 2;
-                // const damage = r_atk * r_atk / (r_atk + def);
-
-                if (action.type === 'userAttack') {
-                    if (Math.random() < userData.acc / 100) {
-                        const r_atk = userData.atk + Math.floor(Math.random() * 5) - 2;
-                        const dam = Math.round(r_atk * r_atk / (r_atk + opponentData.def));
-                        opponentData.hp -= dam;
+                if (['userAttack', 'opponentAttack'].includes(action.type)) {
+                    const p1 = action.type === 'userAttack' ? userData : opponentData;
+                    const p2 = action.type === 'userAttack' ? opponentData : userData;
+                    if (Math.random() < p1.acc / 100) {
+                        const r_atk = p1.atk + Math.floor(Math.random() * 5) - 2;
+                        const dam = Math.round(r_atk * r_atk / (r_atk + p2.def));
+                        p2.hp -= dam;
                         if (action.variable) variables[`c:${action.variable}`] = dam;
                         if (action.goto.success) {
                             didGoto = true;
@@ -56,6 +66,38 @@ export async function findPrompt(value = '', { duel, user, opponent }) {
                     }
                 }
                 break;
+            case 'randomChance':
+                if (Math.random() < action.chance / 100) {
+                    if (action.goto.success) {
+                        didGoto = true;
+                        current = action.goto.success;
+                    }
+                } else {
+                    if (action.goto.fail) {
+                        didGoto = true;
+                        current = action.goto.fail;
+                    }
+                }
+                break;
+            case 'modifyStats': {
+                if (['user', 'opponent'].includes(action.who)) {
+                    const player = action.who === 'user' ? userData : opponentData;
+                    if (player[action.type]) {
+                        const addedValue = rn({ min: action.value[0], max: action.value[1], integer: true });
+                        if (player[action.type] + addedValue > 9999) {
+                            if (action.variable) variables[`c:${action.variable}`] = 9999 - player[action.type];
+                            player[action.type] = 9999;
+                        } else if (player[action.type] + addedValue < 0) {
+                            if (action.variable) variables[`c:${action.variable}`] = -player[action.type];
+                            player[action.type] = 0;
+                        } else {
+                            if (action.variable) variables[`c:${action.variable}`] = addedValue;
+                            player[action.type] += addedValue;
+                        }
+                    }
+                }
+                break;
+            }
             case 'stop':
                 current = prompt.actions.length;
                 break;
@@ -76,4 +118,10 @@ export function createPrompt({ regex, actions = [], prodigy = 0 }) {
        actions,
        prodigy
     });
+}
+
+export async function createPrompts(...prompts) {
+    const output = [];
+    for (const prompt of prompts) output.push(await createPrompt(prompt));
+    return output;
 }

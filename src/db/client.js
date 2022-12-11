@@ -41,10 +41,52 @@ export async function findPrompt(value = '', { duel, user, opponent }) {
             case 'addMessage':
                 let content = action.content;
                 for (const match of content.matchAll(/{{.*?}}/g)) {
-                    content = content.replace(match[0], (variables[match[0].substring(2, match[0].length - 2)] || match[0]));
+                    content = content.replace(match[0], (match[0].substring(2, match[0].length - 2) in variables ? variables[match[0].substring(2, match[0].length - 2)] : match[0]));
                 }
                 fullContent += content;
                 break;
+            case 'condition': {
+                let value1 = action.value1;
+                for (const match of value1.matchAll(/{{.*?}}/g)) {
+                    value1 = value1.replace(match[0], (match[0].substring(2, match[0].length - 2) in variables ? variables[match[0].substring(2, match[0].length - 2)] : match[0]));
+                }
+
+                let value2 = action.value2;
+                for (const match of value2.matchAll(/{{.*?}}/g)) {
+                    value2 = value2.replace(match[0], (match[0].substring(2, match[0].length - 2) in variables ? variables[match[0].substring(2, match[0].length - 2)] : match[0]));
+                }
+
+                let pass = false;
+                switch (action.type) {
+                    case '=':
+                        if (value1 == value2) pass = true;
+                        break;
+                    case '<':
+                        if (value1 < value2) pass = true;
+                        break;
+                    case '>':
+                        if (value1 > value2) pass = true;
+                        break;
+                    case '<=':
+                        if (value1 <= value2) pass = true;
+                        break;
+                    case '>=':
+                        if (value1 >= value2) pass = true;
+                        break;
+                }
+                if (pass) {
+                    if (action.goto && action.goto.success) {
+                        didGoto = true;
+                        current = action.goto.success;
+                    }
+                } else {
+                    if (action.goto && action.goto.fail) {
+                        didGoto = true;
+                        current = action.goto.fail;
+                    }
+                }
+                break;
+            }
             case 'damageOpponent':
                 if (['userAttack', 'opponentAttack'].includes(action.type)) {
                     const p1 = action.type === 'userAttack' ? userData : opponentData;
@@ -54,12 +96,12 @@ export async function findPrompt(value = '', { duel, user, opponent }) {
                         const dam = Math.round(r_atk * r_atk / (r_atk + p2.def));
                         p2.hp -= dam;
                         if (action.variable) variables[`c:${action.variable}`] = dam;
-                        if (action.goto.success) {
+                        if (action.goto && action.goto.success) {
                             didGoto = true;
                             current = action.goto.success;
                         }
                     } else {
-                        if (action.goto.fail) {
+                        if (action.goto && action.goto.fail) {
                             didGoto = true;
                             current = action.goto.fail;
                         }
@@ -82,18 +124,16 @@ export async function findPrompt(value = '', { duel, user, opponent }) {
             case 'modifyStats': {
                 if (['user', 'opponent'].includes(action.who)) {
                     const player = action.who === 'user' ? userData : opponentData;
-                    if (player[action.type]) {
-                        const addedValue = rn({ min: action.value[0], max: action.value[1], integer: true });
-                        if (player[action.type] + addedValue > 9999) {
-                            if (action.variable) variables[`c:${action.variable}`] = 9999 - player[action.type];
-                            player[action.type] = 9999;
-                        } else if (player[action.type] + addedValue < 0) {
-                            if (action.variable) variables[`c:${action.variable}`] = -player[action.type];
-                            player[action.type] = 0;
-                        } else {
-                            if (action.variable) variables[`c:${action.variable}`] = addedValue;
-                            player[action.type] += addedValue;
-                        }
+                    const addedValue = rn({ min: action.value[0], max: action.value[1], integer: true });
+                    if (player[action.type] + addedValue > 9999) {
+                        if (action.variable) variables[`c:${action.variable}`] = 9999 - player[action.type];
+                        player[action.type] = 9999;
+                    } else if (player[action.type] + addedValue < 0) {
+                        if (action.variable) variables[`c:${action.variable}`] = -player[action.type] || 0;
+                        player[action.type] = 0;
+                    } else {
+                        if (action.variable) variables[`c:${action.variable}`] = addedValue;
+                        player[action.type] += addedValue;
                     }
                 }
                 break;

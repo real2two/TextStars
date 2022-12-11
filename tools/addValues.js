@@ -35,7 +35,7 @@ await createPrompts(
                 action: 'randomChance',
                 chance: 50,
                 goto: {
-                    fail: 4
+                    fail: 5
                 }
             },
             {
@@ -44,6 +44,15 @@ await createPrompts(
                 type: 'def',
                 value: [ -2, -1 ],
                 variable: 'defenseLost'
+            },
+            {
+                action: 'condition',
+                type: '=',
+                value1: '{{c:defenseLost}}',
+                value2: '0',
+                goto: {
+                    success: 5
+                }
             },
             {
                 action: 'addMessage',

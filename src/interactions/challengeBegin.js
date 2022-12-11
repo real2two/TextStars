@@ -62,12 +62,25 @@ export async function execute(interaction) {
     }
 
     const duel = {
+        id: challengeId,
         channel: interaction.channel.id,
         fighters: request.users,
         info: {
             turn: Math.floor(Math.random() * 2) ? requestedUser.id : challengedUser.id
         },
-        data
+        data,
+        timer: null,
+
+        generateEmbedTemplate: () => ({
+            color: 0xFEE75C,
+            author: { name: `${requestedUser.username} vs ${challengedUser.username}` },
+            fields: [{
+                name: 'Status',
+                value: `**<@!${requestedUser.id}>'s HP**: ${duel.data.find(({ id }) => id === requestedUser.id).hp}\n` +
+                       `**<@!${challengedUser.id}>'s HP**: ${duel.data.find(({ id }) => id === challengedUser.id).hp}\n`
+            }],
+        }),
+        editPrevious: null
     };
 
     duels[challengeId] = duel;
@@ -88,25 +101,40 @@ export async function execute(interaction) {
         }]
     });
 
-    await interaction.createMessage({
-        embeds: [{
-            color: 0xFEE75C,
-            author: {
-                name: `${requestedUser.username} vs ${challengedUser.username}`
-            },
-            thumbnail: { url: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/53/crossed-swords_2694.png' },
-            description: `${requestedUser.team === challengedUser.team ?
-                            `A duel between two Hypesquad ${requestedUser.team.slice(0, 1).toUpperCase() + requestedUser.team.slice(1)} members began.` : 
-                            `A duel between a Hypesquad ${requestedUser.team.slice(0, 1).toUpperCase() + requestedUser.team.slice(1)} member and a Hypesquad ${challengedUser.team.slice(0, 1).toUpperCase() + challengedUser.team.slice(1)} member began.`}\n\n` +
-                         `The match begins with <@!${duel.info.turn}>'s turn.`,
-            fields: [
-                {
-                    name: 'Status',
-                    value: `**<@!${requestedUser.id}>'s HP**: ${duel.data.find(({ id }) => id === requestedUser.id).hp}\n` +
-                           `**<@!${challengedUser.id}>'s HP**: ${duel.data.find(({ id }) => id === challengedUser.id).hp}\n`
-                }
-            ],
-            footer: { text: 'Confused? Send a message to start dueling. (eg. attack, defend, heal, move, etc.)' }
-        }]
+    const embed = {
+        ...duel.generateEmbedTemplate(),
+        thumbnail: { url: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/53/crossed-swords_2694.png' },
+        description: `${requestedUser.team === challengedUser.team ?
+                        `A duel between two Hypesquad ${requestedUser.team.slice(0, 1).toUpperCase() + requestedUser.team.slice(1)} members began.` : 
+                        `A duel between a Hypesquad ${requestedUser.team.slice(0, 1).toUpperCase() + requestedUser.team.slice(1)} member and a Hypesquad ${challengedUser.team.slice(0, 1).toUpperCase() + challengedUser.team.slice(1)} member began.`}\n\n` +
+                     `The match begins with <@!${duel.info.turn}>'s turn.\n` +
+                     `<@!${duel.info.turn}> has to use a move <t:${((Date.now() + 30000) / 1000) | 0}:R>.`,
+        footer: { text: 'Confused? Send a message to start dueling. (eg. attack, defend, heal, move, etc.)' }
+    };
+
+    duel.timer = setTimeout(async () => {
+        delete duels[duel.id];
+        await duel.editPrevious();
+        await interaction.createFollowup({
+            embeds: [{
+                ...duel.generateEmbedTemplate(),
+                color: 0x57F287,
+                thumbnail: { url: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/crown_1f451.png' },
+                description: `<@!${duel.info.turn}> failed to use a move within 30 seconds.\n\n` +
+                             `<@!${duel.fighters.find(u => u.id !== duel.info.turn) ? duel.fighters.find(u => u.id !== duel.info.turn).id : duel.info.turn}> wins!`
+            }]
+        });
+    }, 30000);
+
+    const message = await interaction.createMessage({
+        embeds: [ embed ]
     });
+
+    duel.editPrevious = () => interaction.editMessage(message.id, { embeds: [ {
+        ...embed,
+        description: `${requestedUser.team === challengedUser.team ?
+            `A duel between two Hypesquad ${requestedUser.team.slice(0, 1).toUpperCase() + requestedUser.team.slice(1)} members began.` : 
+            `A duel between a Hypesquad ${requestedUser.team.slice(0, 1).toUpperCase() + requestedUser.team.slice(1)} member and a Hypesquad ${challengedUser.team.slice(0, 1).toUpperCase() + challengedUser.team.slice(1)} member began.`}\n\n` +
+         `The match begins with <@!${duel.info.turn}>'s turn.`
+    }]});
 }

@@ -1,6 +1,6 @@
 // import { client } from '../main/bot.js';
 import getHouse from '../func/getHouse.js';
-import { requests, duels } from '../game/data.js';
+import { requests, duels } from '../func/data.js';
 
 export async function execute(interaction) {
     let userId;

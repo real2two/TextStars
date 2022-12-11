@@ -1,5 +1,5 @@
 import { client } from '../main/bot.js';
-import { duels } from '../game/data.js';
+import { duels } from '../func/data.js';
 
 client.on('messageCreate', async msg => {
     if (msg.member.user.bot) return;
@@ -10,7 +10,7 @@ client.on('messageCreate', async msg => {
     const duel = Duel[1];
     if (!duel.fighters.find(u => u.id === msg.member.user.id)) return;
 
-    /* FORMULAS
+    /* FORMULAS (work on game logic!)
         - r_att = att + Math.floor(Math.random() * 5) - 2; // the attack value can only be a value inbetween (atk - 2) to (atk + 2) 
         - damage = r_atk * r_atk / (r_atk + def) */
 

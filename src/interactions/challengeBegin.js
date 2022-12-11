@@ -1,4 +1,4 @@
-import { requests, duels } from '../game/data.js';
+import { requests, duels } from '../func/data.js';
 
 export async function execute(interaction) {
     const challengeId = interaction.data.custom_id.slice('challenge-'.length);

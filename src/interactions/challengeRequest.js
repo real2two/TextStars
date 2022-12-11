@@ -1,4 +1,4 @@
-// import { client } from '../main/bot.js';
+import { client } from '../main/bot.js';
 import getHouse from '../func/getHouse.js';
 import { requests, duels } from '../func/data.js';
 
@@ -98,7 +98,7 @@ export async function execute(interaction) {
     }
 
     await interaction.createMessage({
-        content: `||<@!${challengedUser.id}>||`,
+        content: `||<@!${challengedUser.id}> <@!${client.user.id}>||`,
         embeds: [ embed ],
         components: [{
             type: 1,

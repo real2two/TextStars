@@ -8,7 +8,8 @@ client.on('messageCreate', async msg => {
     if (!Duel) return;
     
     const duel = Duel[1];
-    if (!duel.fighters.find(u => u.id === msg.member.user.id)) return;
+    //if (!duel.fighters.find(u => u.id === msg.member.user.id)) return;
+    if (msg.member.user.id !== duel.info.turn) return;
 
     /* FORMULAS (work on game logic!)
         - r_att = att + Math.floor(Math.random() * 5) - 2; // the attack value can only be a value inbetween (atk - 2) to (atk + 2) 

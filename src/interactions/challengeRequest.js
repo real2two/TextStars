@@ -23,10 +23,10 @@ export async function execute(interaction) {
         });
     }
 
-    if (requestingUser.id === challengedUser.id) return interaction.createMessage({
-        flags: 64,
-        content: 'You can\'t fight yourself.'
-    });
+    // if (requestingUser.id === challengedUser.id) return interaction.createMessage({
+    //     flags: 64,
+    //     content: 'You can\'t fight yourself.'
+    // });
 
     if (challengedUser.bot) return interaction.createMessage({
         flags: 64,
@@ -71,7 +71,7 @@ export async function execute(interaction) {
         color: 0x5865F2,
         author: {
             name: `${requestingUser.username} challenges ${challengedUser.username} to a duel!`,
-            icon_url: requestingUser.avatarURL
+            icon_url: interaction.member.user.avatarURL
         },
         description: `Do you accept the challenge? You have <t:${((Date.now() + 60000) / 1000) | 0}:R> to accept.`
     };

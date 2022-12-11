@@ -105,7 +105,8 @@ export async function execute(interaction) {
                     value: `**<@!${requestedUser.id}>'s HP**: ${duel.data.find(({ id }) => id === requestedUser.id).hp}\n` +
                            `**<@!${challengedUser.id}>'s HP**: ${duel.data.find(({ id }) => id === challengedUser.id).hp}\n`
                 }
-            ]
+            ],
+            footer: { text: 'Confused? Send a message to start dueling. (eg. attack, defend, heal, move, etc.)' }
         }]
     });
 }

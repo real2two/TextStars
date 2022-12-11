@@ -109,7 +109,7 @@ export async function execute(interaction) {
                         `A duel between a Hypesquad ${requestedUser.team.slice(0, 1).toUpperCase() + requestedUser.team.slice(1)} member and a Hypesquad ${challengedUser.team.slice(0, 1).toUpperCase() + challengedUser.team.slice(1)} member began.`}\n\n` +
                      `The match begins with <@!${duel.info.turn}>'s turn.\n` +
                      `<@!${duel.info.turn}> has to use a move <t:${((Date.now() + 30000) / 1000) | 0}:R>.`,
-        footer: { text: 'Confused? Send a message to start dueling. (eg. attack, defend, heal, move, etc.)' }
+        footer: { text: 'Confused? Send a message to start dueling. (eg. throw snowball, defend, etc.)' }
     };
 
     duel.timer = setTimeout(async () => {

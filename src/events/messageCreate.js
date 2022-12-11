@@ -17,7 +17,7 @@ client.on('messageCreate', async msg => {
 
     duel.info.turn = null;
 
-    const prompt = await findPrompt(msg.content, { duel, user, opponent });
+    const prompt = await findPrompt(msg.content.toLowerCase(), { duel, user, opponent });
     if (!prompt) {
         try {
             duel.info.turn = user.id;

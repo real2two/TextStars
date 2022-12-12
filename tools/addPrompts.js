@@ -418,36 +418,6 @@ const unparsedPrompts = [
             }
         ]
     },
-    { // hi
-        value: 'hi',
-        actions: [
-            {
-                action: 'addMessage',
-                content: '{{user}} waved "Hi".'
-            }
-        ],
-        prodigy: -1
-    },
-    { // hey
-        value: 'hey',
-        actions: [
-            {
-                action: 'addMessage',
-                content: '{{user}} waved "Hey".'
-            }
-        ],
-        prodigy: -1
-    },
-    { // hello
-        value: 'hello',
-        actions: [
-            {
-                action: 'addMessage',
-                content: '{{user}} waved "Hello".'
-            }
-        ],
-        prodigy: -1
-    },
     { // charge
         value: 'charge',
         actions: [
@@ -760,6 +730,208 @@ const unparsedPrompts = [
                 action: 'addMessage',
                 content: '{{user}} self destructed.'
             },
+        ]
+    },
+    { // ohio
+        value: 'ohio',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto:
+                {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: `Ohio is an American state in the Midwest region of the country that became the subject of memes across social media platforms like Twitter, Tumblr, Reddit, Instagram and TikTok, among other platforms, predominantly following the Ohio vs. the World trend that started in 2016. Going into the 2020s, the concept of Ohio as a meme became commonplace through multiple trends that humorously labeled Ohio as an American middle place, existing as a capitalist wasteland of chaos and mayhem, akin to creepypastas, lore and randomness, becoming an imagined epitome of American signifiers such as Breezewood, Pennsylvania. Ohio meme trends include Wait, It's All Ohio? Always Has Been, Can't Even X in Ohio, Only in Ohio, the Ohio Final Boss and the King of Ohio, among other micro-trends.\n\n` +
+                         '{{opponent}} lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: `Ohio is an American state in the Midwest region of the country that became the subject of memes across social media platforms like Twitter, Tumblr, Reddit, Instagram and TikTok, among other platforms, predominantly following the Ohio vs. the World trend that started in 2016. Going into the 2020s, the concept of Ohio as a meme became commonplace through multiple trends that humorously labeled Ohio as an American middle place, existing as a capitalist wasteland of chaos and mayhem, akin to creepypastas, lore and randomness, becoming an imagined epitome of American signifiers such as Breezewood, Pennsylvania. Ohio meme trends include Wait, It's All Ohio? Always Has Been, Can't Even X in Ohio, Only in Ohio, the Ohio Final Boss and the King of Ohio, among other micro-trends.\n\n` +
+                         '{{opponent}} lost 0 HP.'
+            }
+        ]
+    },
+    { // punch
+        value: 'punch',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto:
+                {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} punched {{opponent}} and lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} attempted to punched {{opponent}} but missed.'
+            }
+        ]
+    },
+    { // kick
+        value: 'kick',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto:
+                {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} kicked {{opponent}} and lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} attempted to kick {{opponent}} but missed.'
+            }
+        ]
+    },
+    { // stab
+        value: 'stab',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto:
+                {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} stabbed {{opponent}} and lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} attempted to stab {{opponent}} but missed.'
+            }
+        ]
+    },
+    { // murder
+        value: 'murder',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto:
+                {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} failed to murder {{opponent}} but managed to stab {{user}}.\n{{user}} lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} failed to murder {{opponent}}.'
+            }
+        ]
+    },
+    { // bully
+        value: 'bully',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto:
+                {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} bullied {{opponent}} and lost {{c:hpLost}} HP in EMOTIONAL DAMAGE.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} bullied {{opponent}} but {{opponent}} did not give a quack.'
+            }
+        ]
+    },
+    { // lick
+        value: 'lick',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto:
+                {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} pulled a devious lick on {{opponent}} and lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} failed to lick {{opponent}}.'
+            }
+        ]
+    },
+    { // beat
+        value: 'beat',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto:
+                {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} beat up {{opponent}} and lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} attempted to beat up {{opponent}} but failed.'
+            }
         ]
     }
 ];

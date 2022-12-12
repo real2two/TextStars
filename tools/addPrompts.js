@@ -933,6 +933,31 @@ const unparsedPrompts = [
                 content: '{{user}} attempted to beat up {{opponent}} but failed.'
             }
         ]
+    },
+    { // quack
+        value: 'quack',
+        actions: [
+            {
+                action: 'addMessage',
+                content: '{{user}} quacked.'
+            }
+        ]
+    },
+    { // milk
+        value: 'milk',
+        actions: [
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [0, 10],
+                variable: 'hpGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} healed {{c:hpGained}} HP.'
+            }
+        ]
     }
 ];
     

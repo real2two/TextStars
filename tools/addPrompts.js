@@ -528,6 +528,225 @@ const unparsedPrompts = [
             }
         ]
     },
+    { // tree
+        value: 'tree',
+        actions: [
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'acc',
+                value: [1, 2],
+                variable: 'accuracyGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} inhaled a Christmas tree gaining {{c:accuracyGained}} ACC.'
+            }
+        ]
+    },
+    { // christmas
+        value: 'christmas',
+        actions: [
+            {
+                action: 'addMessage',
+                content: 'Christmas? Try `throw snowball`, `sugar rush`, `gingerbread`, `snowman`, `tree`, `christmas`, `gift`, `santa`, `sugar cane`, etc...'
+            }
+        ]
+    },
+    { // gift
+        value: 'gift',
+        actions: [
+            {
+                action: 'randomChance',
+                chance: 40,
+                goto: {
+                    fail: 4
+                }
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'atk',
+                value: [1, 5],
+                variable: 'attackGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} opened a present and gained {{c:attackGained}} ATK.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'randomChance',
+                chance: 45,
+                goto: {
+                    fail: 8
+                }
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'def',
+                value: [1, 5],
+                variable: 'defenseGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} opened a present and gained {{c:defenseGained}} DEF.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'randomChance',
+                chance: 50,
+                goto: {
+                    fail: 12
+                }
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'acc',
+                value: [1, 5],
+                variable: 'accuracyGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} opened a present and gained {{c:accuracyGained}} ACC.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'acc',
+                value: [1, 5],
+                variable: 'hpGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} opened a present and gained {{c:hpGained}} HP.'
+            }
+        ]
+    },
+    { // santa
+        value: 'santa',
+        actions: [
+            {
+                action: 'addMessage',
+                content: 'Grow up. Santa isn\'t real.'
+            }
+        ]
+    },
+    { // sugar cane
+        value: 'sugar[\\s\\S]*cane',
+        actions: [
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'atk',
+                value: [1, 2],
+                variable: 'attackGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} ate a sugarcane and gained {{c:attackGained}} ATK.'
+            }
+        ]
+    },
+    { // retreat
+        value: 'retreat',
+        actions: [
+            {
+                action: 'randomChance',
+                chance: 1,
+                goto: {
+                    success: 4
+                }
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [-9999, -9999]
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} retreated.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'atk',
+                value: [ 100, 200 ],
+                variable: 'attackGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} felt like retreating but felt a strong pulse of motivation.\n{{user}} gained {{c:attackGained}} ATK.'
+            }
+        ],
+        prodigy: -3
+    },
+    { // heal
+        value: 'heal',
+        actions: [
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [2, 2],
+                variable: 'hpGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} healed {{c:hpGained}} HP.'
+            }
+        ]
+    },
+    { // hug
+        value: 'hug',
+        actions: [
+            {
+                action: 'randomChance',
+                chance: 50,
+                goto: {
+                    fail: 4
+                }
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [-1, -1],
+                variable: 'hpLost'
+            },
+            {
+                action: 'addMessage',
+                content: 'EMOTIONAL DAMAGE. {{user}} tried to hug {{opponent}} but was regretted. ({{c:hpLost}} HP)'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'modifyStats',
+                who: 'opponent',
+                type: 'def',
+                value: [-5, -2],
+                variable: 'defenseLost'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} hugged {{opponent}}.\n{{opponent}} lost {{c:defenseLost}} DEF.'
+            }
+        ]
+    }
 ];
     
 const parsedPrompts = [];

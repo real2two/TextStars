@@ -1056,6 +1056,43 @@ const unparsedPrompts = [
                 content: '{{user}} drank something and gained {{c:accuracyGained}} ACC.'
             }
         ]
+    },
+    { // neko kneecap
+        value: 'neko kneecap',
+        actions: [
+            {
+                action: 'randomChance',
+                chance: 50,
+                goto: {
+                    fail: 4
+                }
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [-5, -5],
+                variable: 'hpLost'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} broke kneecaps and lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'modifyStats',
+                who: 'opponent',
+                type: 'hp',
+                value: [-5, -5],
+                variable: 'hpLost'
+            },
+            {
+                action: 'addMessage',
+                content: '{{opponent}} broke kneecaps and lost {{c:hpLost}} HP.'
+            },
+        ]
     }
 ];
     

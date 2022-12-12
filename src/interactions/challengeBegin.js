@@ -130,11 +130,10 @@ export async function execute(interaction) {
         embeds: [ embed ]
     });
 
-    duel.editPrevious = () => interaction.editMessage(message.id, { embeds: [ {
-        ...embed,
-        description: `${requestedUser.team === challengedUser.team ?
-            `A duel between two Hypesquad ${requestedUser.team.slice(0, 1).toUpperCase() + requestedUser.team.slice(1)} members began.` : 
-            `A duel between a Hypesquad ${requestedUser.team.slice(0, 1).toUpperCase() + requestedUser.team.slice(1)} member and a Hypesquad ${challengedUser.team.slice(0, 1).toUpperCase() + challengedUser.team.slice(1)} member began.`}\n\n` +
-         `The match begins with <@!${duel.info.turn}>'s turn.`
-    }]});
+    duel.editPrevious = () => interaction.editMessage(message.id, {
+        embeds: [{
+            ...embed,
+            description: embed.description.slice(0, -embed.description.split('\n')[embed.description.split('\n').length - 1].length - 1)
+        }]
+    });
 }

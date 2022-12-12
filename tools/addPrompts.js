@@ -50,7 +50,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'condition',
-                type: '=',
+                type: '<=',
                 value1: '{{c:defenseLost}}',
                 value2: '0',
                 goto:
@@ -848,7 +848,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'condition',
-                type: '=',
+                type: '<=',
                 value1: '{{opponentHP}}',
                 value2: '0',
                 goto: {
@@ -889,7 +889,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'condition',
-                type: '=',
+                type: '<=',
                 value1: '{{opponentHP}}',
                 value2: '0',
                 goto: {

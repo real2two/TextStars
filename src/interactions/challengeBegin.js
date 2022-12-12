@@ -2,7 +2,7 @@ import { requests, duels } from '../func/data.js';
 
 export async function execute(interaction) {
     const challengeId = interaction.data.custom_id.slice('challenge-'.length);
-    const [ _guildId, _requestedUserId, challengedUserId ] = challengeId.split(':');
+    const [ _guildId, requestedUserId, challengedUserId ] = challengeId.split(':');
 
     if (interaction.member.user.id !== challengedUserId) return interaction.createMessage({
         flags: 64,
@@ -12,6 +12,11 @@ export async function execute(interaction) {
     if (Object.keys(duels).find(r => r.startsWith(`${interaction.guildID}:`) && r.includes(`${challengedUserId}:`))) return interaction.createMessage({
         flags: 64,
         content: 'You are already in a duel.'
+    });
+
+    if (Object.keys(duels).find(r => r.startsWith(`${interaction.guildID}:`) && r.includes(`${requestedUserId}:`))) return interaction.createMessage({
+        flags: 64,
+        content: 'The requesting challenger joined another duel.'
     });
 
     if (Object.entries(duels).find(([ k, v ]) => k.startsWith(`${interaction.guildId}:`) && v.channel === interaction.channel.id)) return interaction.createMessage({

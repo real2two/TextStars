@@ -1057,8 +1057,8 @@ const unparsedPrompts = [
             }
         ]
     },
-    { // neko kneecap
-        value: 'neko kneecap',
+    { // niko kneecap
+        value: 'niko kneecap',
         actions: [
             {
                 action: 'randomChance',
@@ -1143,6 +1143,67 @@ const unparsedPrompts = [
             }
         ]
     },
+    { // piss
+        value: 'piss',
+        actions: [
+            {
+                action: 'condition',
+                type: '=',
+                value1: '{{user}}',
+                value2: '<@!1043890984947290134>',
+                goto: {
+                    success: 1,
+                    fail: 2
+                }
+            },
+            {
+                action: 'randomChance',
+                chance: 50,
+                goto: {
+                    success: 3,
+                    fail: 6
+                }
+            },
+            {
+                action: 'randomChance',
+                chance: 1,
+                goto: {
+                    success: 6,
+                    fail: 3
+                }
+            },
+            {
+                action: 'modifyStats',
+                who: 'opponent',
+                type: 'def',
+                value: [-5, -1],
+                variable: 'defenseLost'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} pissed on {{opponent}}.\n{{opponent}}\'s DEF fell by {{c:defenseLost}}.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [-9999, -9999]
+            },
+            {
+                action: 'modifyStats',
+                who: 'opponent',
+                type: 'hp',
+                value: [-9999, -9999]
+            },
+            {
+                action: 'addMessage',
+                content: '{{opponent}} was concerned and brought {{user}} to a mental hospital.'
+            }
+        ]
+    }
 ];
     
 const parsedPrompts = [];

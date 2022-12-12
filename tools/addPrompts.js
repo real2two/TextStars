@@ -1203,6 +1203,95 @@ const unparsedPrompts = [
                 content: '{{opponent}} was concerned and brought {{user}} to a mental hospital.'
             }
         ]
+    },
+    { // flash bang
+        value: 'flash[\\s\\S]*bang',
+        actions: [
+            {
+                action: 'modifyStats',
+                who: 'opponent',
+                type: 'hp',
+                value: [-1, -1],
+                variable: 'hpLost'
+            },
+            {
+                action: 'modifyStats',
+                who: 'opponent',
+                type: 'acc',
+                value: [-1, -1],
+                variable: 'accuracyLost'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} flashbanged {{opponent}} and lost {{c:hpLost}} HP and {{c:accuracyLost}} ACC.'
+            }
+        ]
+    },
+    { // swim
+        value: 'swim',
+        actions: [
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'acc',
+                value: [1, 8],
+                variable: 'accuracyGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} decided to go swim and gained {{c:accuracyGained}} ACC.'
+            }
+        ]
+    },
+    { // shoot
+        value: 'shoot',
+        actions: [
+            {
+                action: 'addMessage',
+                content: '{{user}} tried to shoot a gun but realize this isn\'t America.'
+            }
+        ]
+    },
+    { // shuriken
+        value: 'shuriken',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto:
+                {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} threw a [shuriken](https://discord.gg/j9GvP3jpxp) and {{opponent}} got hit losing {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} threw a [shuriken](https://discord.gg/j9GvP3jpxp) but missed.'
+            }
+        ]
+    },
+    { // rick roll
+        value: 'rick[\\s\\S]*roll',
+        actions: [
+            {
+                action: 'modifyStats',
+                who: 'opponent',
+                type: 'atk',
+                value: [-1, -3],
+                variable: 'attackLost'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} [rickrolled](https://discord.gg/ggZn8PaQed) and {{opponent}} lost {{c:attackLost}} ATK.'
+            }
+        ]
     }
 ];
     

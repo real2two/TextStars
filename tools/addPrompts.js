@@ -1117,7 +1117,32 @@ const unparsedPrompts = [
                 content: '{{user}} growled like a idiot.'
             }
         ]
-    }
+    },
+    { // hit
+        value: 'hit',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto:
+                {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} hit {{opponent}} and lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} attempted to hit {{opponent}} but missed.'
+            }
+        ]
+    },
 ];
     
 const parsedPrompts = [];

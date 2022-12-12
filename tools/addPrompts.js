@@ -482,7 +482,7 @@ const unparsedPrompts = [
         ],
         prodigy: -2
     },
-    {
+    { // florida
         value: 'florida',
         actions: [
             {

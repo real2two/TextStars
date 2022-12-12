@@ -955,7 +955,48 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} healed {{c:hpGained}} HP.'
+                content: '{{user}} drank milk and gained {{c:hpGained}} HP.'
+            }
+        ]
+    },
+    { // milm
+        value: 'milm',
+        actions: [
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [2, 10],
+                variable: 'hpGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} drank the milm and gained {{c:hpGained}} HP.'
+            }
+        ]
+    },
+    { // fly
+        value: 'fly',
+        actions: [
+            {
+                action: 'addMessage',
+                content: '{{user}} tried to fly only to realize humans don\'t have wings.'
+            }
+        ]
+    },
+    { // drink
+        value: 'drink',
+        actions: [
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [0, 10],
+                variable: 'accuracyGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} drank something and gained {{c:accuracyGained}} ACC.'
             }
         ]
     }

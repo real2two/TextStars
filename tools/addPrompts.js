@@ -1093,6 +1093,30 @@ const unparsedPrompts = [
                 content: '{{opponent}} broke kneecaps and lost {{c:hpLost}} HP.'
             },
         ]
+    },
+    { // gr
+        value: 'gr',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto: {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} growled which damaged {{opponent}} by {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} growled like a idiot.'
+            }
+        ]
     }
 ];
     

@@ -746,6 +746,21 @@ const unparsedPrompts = [
                 content: '{{user}} hugged {{opponent}}.\n{{opponent}} lost {{c:defenseLost}} DEF.'
             }
         ]
+    },
+    { // self destruct
+        value: 'self destruct',
+        actions: [
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [-9999, -9999]
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} self destructed.'
+            },
+        ]
     }
 ];
     

@@ -843,12 +843,28 @@ const unparsedPrompts = [
                 variable: 'hpLost',
                 goto:
                 {
-                    fail: 3
+                    fail: 6
+                }
+            },
+            {
+                action: 'condition',
+                type: '=',
+                value1: '{{opponentHP}}',
+                value2: '0',
+                goto: {
+                    fail: 4
                 }
             },
             {
                 action: 'addMessage',
-                content: '{{user}} failed to murder {{opponent}} but managed to stab {{user}}.\n{{user}} lost {{c:hpLost}} HP.'
+                content: '{{user}} successfully murdered {{opponent}}.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} failed to murder {{opponent}} but managed to stab {{opponent}}.\n{{opponent}} lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
@@ -856,6 +872,47 @@ const unparsedPrompts = [
             {
                 action: 'addMessage',
                 content: '{{user}} failed to murder {{opponent}}.'
+            }
+        ]
+    },
+    { // kill
+        value: 'kill',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto:
+                {
+                    fail: 6
+                }
+            },
+            {
+                action: 'condition',
+                type: '=',
+                value1: '{{opponentHP}}',
+                value2: '0',
+                goto: {
+                    fail: 4
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} successfully killed {{opponent}}.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} failed to kill {{opponent}} but managed to stab {{opponent}}.\n{{opponent}} lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} failed to kill {{opponent}}.'
             }
         ]
     },

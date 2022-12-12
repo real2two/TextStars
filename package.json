@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "start": "node .",
-    "create-interactions": "node tools/createInteractions.js"
+    "create-interactions": "node tools/createInteractions.js",
+    "add-prompts": "node tools/addPrompts.js"
   },
   "author": "Two",
   "dependencies": {

@@ -1656,7 +1656,31 @@ const unparsedPrompts = [
                 content: '{{user}} attempted to electrify {{opponent}} but failed.'
             }
         ]
-    }
+    },
+    { // whip
+        value: 'whip',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto: {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} whipped {{opponent}} and lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} attempted to whip {{opponent}} but missed.'
+            }
+        ]
+    },
 ];
     
 const parsedPrompts = [];

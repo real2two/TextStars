@@ -18,20 +18,20 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} attacked {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '❄️ {{user}} attacked {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '{{user}} attempted to attack {{opponent}} but failed.'
+                content: '❄️ {{user}} attempted to attack {{opponent}} but failed.'
             }
         ],
         prodigy: 1
     },
     { // marry
-        value: 'marry',
+        value: 'marr(y|ied)',
         actions: [
             {
                 action: 'randomChance',
@@ -60,7 +60,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} hugged {{opponent}}.\n{{opponent}}\'s DEF decreased by {{c:defenseLost}}.'
+                content: '💍 {{user}} hugged {{opponent}}!\n{{opponent}}\'s DEF decreased by {{c:defenseLost}}.'
             },
             {
                 action: 'stop'
@@ -74,7 +74,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} tried to hug {{opponent}} but got rejected and lost {{c:hpLost}} HP.'
+                content: '🥶 {{user}} tried to hug {{opponent}} but got rejected and lost {{c:hpLost}} HP.'
             }
         ]
     },
@@ -91,14 +91,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} threw a snowball at {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '🗯️ {{user}} threw a snowball at {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '{{user}} tried to throw a snowball towards {{opponent}} but missed.'
+                content: '💨 {{user}} tried to throw a snowball towards {{opponent}} but missed.'
             }
         ],
         prodigy: 1
@@ -116,14 +116,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} threw stuff at {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '🗯️ {{user}} threw stuff at {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '{{user}} tried to throw stuff towards {{opponent}} but missed.'
+                content: '💨 {{user}} tried to throw stuff towards {{opponent}} but missed.'
             }
         ]
     },
@@ -139,7 +139,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} gained {{c:defenseGained}} DEF.'
+                content: '🛡️ {{user}} gained {{c:defenseGained}} DEF.'
             }
         ]
     },
@@ -162,7 +162,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} went on a sugar rush and gained {{c:attackGained}} ATK but lost {{c:accuracyLost}} ACC.'
+                content: '🍬 {{user}} went on a sugar rush and gained {{c:attackGained}} ATK but lost {{c:accuracyLost}} ACC.'
             }
         ]
     },
@@ -179,14 +179,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} yeeted {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '🫳 {{user}} yeeted {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '{{user}} failed to yeet {{opponent}}.'
+                content: '🫱 {{user}} failed to yeet {{opponent}}.'
             }
         ]
     },
@@ -202,7 +202,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} ate cake and gained {{c:hpGained}} HP.'
+                content: '🍰 {{user}} ate cake and gained {{c:hpGained}} HP.'
             }
         ]
     },
@@ -218,12 +218,12 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} ate caik and gained {{c:hpGained}} HP.'
+                content: '🎂 {{user}} ate caik and gained {{c:hpGained}} HP.'
             }
         ]
     },
-    { // hot coco
-        value: 'hot[\\s\\S]*coco',
+    { // hot coco / choc
+        value: 'hot[\\s\\S]*(coco|choc)',
         actions: [
             {
                 action: 'randomChance',
@@ -241,7 +241,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} drank hotcoco and gained {{c:attackGained}} ATK.'
+                content: '☕ {{user}} drank hotcoco and gained {{c:attackGained}} ATK.'
             },
             {
                 action: 'stop'
@@ -256,59 +256,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} was drinking hotcoco too slowly, so {{opponent}} was able to deal {{c:hpLost}} HP.'
+                content: '🫗 {{user}} was drinking hotcoco too slowly, so {{opponent}} was able to deal {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '{{user}} drank hotcoco and nothing happened.'
-            }
-        ]
-    },
-    { // hot choc
-        value: 'hot[\\s\\S]*choc',
-        actions: [
-            {
-                action: 'randomChance',
-                chance: 25,
-                goto: {
-                    fail: 4
-                }
-            },
-            {
-                action: 'modifyStats',
-                who: 'user',
-                type: 'atk',
-                value: [3, 8],
-                variable: 'attackGained'
-            },
-            {
-                action: 'addMessage',
-                content: '{{user}} drank hot chocolate and gained {{c:attackGained}} ATK.'
-            },
-            {
-                action: 'stop'
-            },
-            {
-                action: 'damageOpponent',
-                type: 'opponentAttack',
-                variable: 'hpLost',
-                goto: {
-                    fail: 7
-                }
-            },
-            {
-                action: 'addMessage',
-                content: '{{user}} was drinking hot chocolate too slowly, so {{opponent}} was able to deal {{c:hpLost}} HP.'
-            },
-            {
-                action: 'stop'
-            },
-            {
-                action: 'addMessage',
-                content: '{{user}} drank hot chocolate and nothing happened.'
+                content: '☕ {{user}} drank hotcoco and nothing happened.'
             }
         ]
     },
@@ -324,7 +279,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} ate gingerbread and gained {{c:hpGained}} HP.'
+                content: '🍪 {{user}} ate gingerbread and gained {{c:hpGained}} HP.'
             }
         ]
     },
@@ -341,14 +296,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{opponent}} was distracted by C A T S. {{user}} was able to deal {{c:hpLost}} HP.'
+                content: '🐈 {{opponent}} was distracted by C A T S. {{user}} was able to deal {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '{{user}} failed to distract {{opponent}} with c a t s.'
+                content: '🐈 {{user}} failed to distract {{opponent}} with c a t s.'
             }
         ]
     },
@@ -371,7 +326,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: 'A snowman blessed {{user}} with {{c:defenseGained}} DEF.'
+                content: '☃️ A snowman blessed {{user}} with {{c:defenseGained}} DEF.'
             },
             {
                 action: 'stop'
@@ -385,7 +340,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: 'The snowball didn\'t like {{user}} and gave frostbite which dealed {{c:hpLost}} HP.'
+                content: '⛄ The snowball didn\'t like {{user}} and gave frostbite which dealed {{c:hpLost}} HP.'
             }
         ]
     },
@@ -401,7 +356,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} played Russian Roulette and didn\'t die.'
+                content: '🔫 {{user}} played Russian Roulette and didn\'t die.'
             },
             {
                 action: 'stop'
@@ -414,7 +369,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} played Russian Roulette and died.'
+                content: '💥 {{user}} played Russian Roulette and died.'
             }
         ]
     },
@@ -430,7 +385,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} charged up {{c:attackGained}} ATK.'
+                content: '⚡ {{user}} charged up {{c:attackGained}} ATK.'
             }
         ]
     },
@@ -439,7 +394,7 @@ const unparsedPrompts = [
         actions: [
             {
                 action: 'addMessage',
-                content: '{{user}} wasted a turn to view stats.\n' +
+                content: '📜 {{user}} wasted a turn to view stats.\n' +
                          '```\n' +
                          `Your ATK: {{userATK}}\n` +
                          `Your DEF: {{userDEF}}\n` +
@@ -464,7 +419,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: 'It\'s very peaceful here in Florida. Nothing is hidden here.'
+                content: '🚩 It\'s very peaceful here in Florida. Nothing is hidden here.'
             },
             {
                 action: 'stop'
@@ -478,7 +433,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} went to Florida and gained {{c:hpGained}} HP.'
+                content: '⛳ {{user}} went to Florida and gained {{c:hpGained}} HP.'
             }
         ]
     },
@@ -494,7 +449,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} went up to Texas and obtained {{c:attackGained}} ATK.'
+                content: '🐴 {{user}} went up to Texas and obtained {{c:attackGained}} ATK.'
             }
         ]
     },
@@ -510,7 +465,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} inhaled a Christmas tree gaining {{c:accuracyGained}} ACC.'
+                content: '🎄 {{user}} inhaled a Christmas tree gaining {{c:accuracyGained}} ACC.'
             }
         ]
     },
@@ -519,7 +474,7 @@ const unparsedPrompts = [
         actions: [
             {
                 action: 'addMessage',
-                content: 'Christmas? Try `throw snowball`, `sugar rush`, `gingerbread`, `snowman`, `tree`, `christmas`, `gift`, `santa`, `sugar cane`, etc...'
+                content: '🎅 Christmas? Try `throw snowball`, `sugar rush`, `gingerbread`, `snowman`, `tree`, `christmas`, `gift`, `santa`, `sugar cane`, etc...'
             }
         ],
         prodigy: -3
@@ -543,7 +498,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} opened a present and gained {{c:attackGained}} ATK.'
+                content: '🎁 {{user}} opened a present and gained {{c:attackGained}} ATK.'
             },
             {
                 action: 'stop'
@@ -564,7 +519,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} opened a present and gained {{c:defenseGained}} DEF.'
+                content: '🎁 {{user}} opened a present and gained {{c:defenseGained}} DEF.'
             },
             {
                 action: 'stop'
@@ -585,7 +540,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} opened a present and gained {{c:accuracyGained}} ACC.'
+                content: '🎁 {{user}} opened a present and gained {{c:accuracyGained}} ACC.'
             },
             {
                 action: 'stop'
@@ -599,7 +554,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} opened a present and gained {{c:hpGained}} HP.'
+                content: '🎁 {{user}} opened a present and gained {{c:hpGained}} HP.'
             }
         ]
     },
@@ -623,17 +578,17 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: 'Santa left you a gift! It looks black...'
+                content: '🌑 Santa left you a gift! It looks black...'
             },
             { action: 'stop' },
             {
                 action: 'addMessage',
-                content: 'Santa knows everything you\'re doing.'
+                content: '🔪 Santa knows everything you\'re doing.'
             },
             { action: 'stop' },
             {
                 action: 'addMessage',
-                content: 'Santa will appear at under your bed tonight.'
+                content: '🛏️ Santa will appear at under your bed tonight.'
             },
             { action: 'stop' },
             {
@@ -652,7 +607,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: 'Santa brought you an amazing present! You gained {{c:hpGained}} HP and {{c:attackGained}} ATK.'
+                content: '💝 Santa brought you an amazing present! You gained {{c:hpGained}} HP and {{c:attackGained}} ATK.'
             },
         ]
     },
@@ -662,7 +617,7 @@ const unparsedPrompts = [
         actions: [
             {
                 action: "addMessage",
-                content: "No."
+                content: "🤓 No."
             }
         ],
         prodigy: 1
@@ -679,7 +634,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} ate a sugarcane and gained {{c:attackGained}} ATK.'
+                content: '🍭 {{user}} ate a sugarcane and gained {{c:attackGained}} ATK.'
             }
         ]
     },
@@ -1562,7 +1517,7 @@ const unparsedPrompts = [
             {
                 action: 'addMessage',
                 content: '{{user}} lost {{c:userHpLost}} HP, and {{opponent}} lost {{c:opponentHpLost}} HP.'
-            },
+            }
         ]
     },
     { // pray
@@ -1681,6 +1636,64 @@ const unparsedPrompts = [
             }
         ]
     },
+    { // blizzard
+        value: 'blizzard',
+        actions: [
+            {
+                action: 'addMessage',
+                content: '🌨️ INCOMING GLIAZZARD!!!\n'
+            },
+            // Defines variables.
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [0, 0],
+                variable: 'userHpLost'
+            },
+            {
+                action: 'modifyStats',
+                who: 'opponent',
+                type: 'hp',
+                value: [0, 0],
+                variable: 'opponentHpLost'
+            },
+            // Random (user).
+            {
+                action: 'randomChance',
+                chance: 50,
+                goto: {
+                    success: 5
+                }
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [-10, -5],
+                variable: 'userHpLost'
+            },
+            // Random. (opponent)
+            {
+                action: 'randomChance',
+                chance: 50,
+                goto: {
+                    success: 7
+                }
+            },
+            {
+                action: 'modifyStats',
+                who: 'opponent',
+                type: 'hp',
+                value: [-10, -5],
+                variable: 'opponentHpLost'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} lost {{c:userHpLost}} HP, and {{opponent}} lost {{c:opponentHpLost}} HP.'
+            }
+        ]
+    }
 ];
     
 const parsedPrompts = [];

@@ -521,7 +521,8 @@ const unparsedPrompts = [
                 action: 'addMessage',
                 content: 'Christmas? Try `throw snowball`, `sugar rush`, `gingerbread`, `snowman`, `tree`, `christmas`, `gift`, `santa`, `sugar cane`, etc...'
             }
-        ]
+        ],
+        prodigy: -3
     },
     { // gift
         value: 'gift',
@@ -606,10 +607,65 @@ const unparsedPrompts = [
         value: 'santa',
         actions: [
             {
+                action: 'randomChance',
+                chance: 50,
+                goto: { success: 5 }
+            },
+            {
+                action: 'randomChance',
+                chance: 50,
+                goto: { success: 7 }
+            },
+            {
+                action: 'randomChance',
+                chance: 50,
+                goto: { fail: 9 }
+            },
+            {
                 action: 'addMessage',
-                content: 'Grow up. Santa isn\'t real.'
-            }
+                content: 'Santa left you a gift! It looks black...'
+            },
+            { action: 'stop' },
+            {
+                action: 'addMessage',
+                content: 'Santa knows everything you\'re doing.'
+            },
+            { action: 'stop' },
+            {
+                action: 'addMessage',
+                content: 'Santa will appear at under your bed tonight.'
+            },
+            { action: 'stop' },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [1, 10],
+                variable: 'hpGained'
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'atk',
+                value: [1, 10],
+                variable: 'attackGained'
+            },
+            {
+                action: 'addMessage',
+                content: 'Santa brought you an amazing present! You gained {{c:hpGained}} HP and {{c:attackGained}} ATK.'
+            },
         ]
+    },
+    { // shut up santa
+        value: 'shut up santa',
+        exact: true,
+        actions: [
+            {
+                action: "addMessage",
+                content: "No."
+            }
+        ],
+        prodigy: 1
     },
     { // sugar cane
         value: 'sugar[\\s\\S]*cane',
@@ -1605,10 +1661,10 @@ const unparsedPrompts = [
     
 const parsedPrompts = [];
 
-for (const { value, actions, prodigy = 0 } of unparsedPrompts) {
+for (const { value, actions, prodigy = 0, exact = false } of unparsedPrompts) {
     parsedPrompts.push(
         {
-            regex: new RegExp(`^[\\s\\S]*${value}[\\s\\S]*$`),
+            regex: exact ? new RegExp(`^${value}$`) : new RegExp(`^[\\s\\S]*${value}[\\s\\S]*$`),
             actions,
             prodigy
         }

@@ -1266,14 +1266,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '{{user}} threw a [shuriken](https://discord.gg/j9GvP3jpxp) and {{opponent}} got hit losing {{c:hpLost}} HP.'
+                content: '{{user}} threw a shuriken and {{opponent}} got hit losing {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '{{user}} threw a [shuriken](https://discord.gg/j9GvP3jpxp) but missed.'
+                content: '{{user}} threw a shuriken but missed.'
             }
         ]
     },
@@ -1290,6 +1290,314 @@ const unparsedPrompts = [
             {
                 action: 'addMessage',
                 content: '{{user}} [rickrolled](https://discord.gg/ggZn8PaQed) and {{opponent}} lost {{c:attackLost}} ATK.'
+            }
+        ]
+    },
+    { // assault
+        value: 'assault',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto:
+                {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} assaulted {{opponent}} and lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} attempted to assault {{opponent}} but failed.'
+            }
+        ]
+    },
+    { // gamble
+        value: 'gamble',
+        actions: [
+            {
+                action: 'randomChance',
+                chance: 50,
+                goto: {
+                    fail: 7
+                }
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [1, 5],
+                variable: 'hpGained'
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'atk',
+                value: [1, 2],
+                variable: 'attackGained'
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'def',
+                value: [1, 3],
+                variable: 'defenseGained'
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'acc',
+                value: [1, 5],
+                variable: 'accuracyGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} gambled and won {{c:hpGained}} HP, {{c:attackGained}} ATK, {{c:defenseGained}} DEF, and {{c:accuracyGained}} ACC.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [-6, -2],
+                variable: 'hpLost'
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'atk',
+                value: [-3, -2],
+                variable: 'attackLost'
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'def',
+                value: [-4, -2],
+                variable: 'defenseLost'
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'acc',
+                value: [-6, -2],
+                variable: 'accuracyLost'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} gambled and lost {{c:hpLost}} HP, {{c:attackLost}} ATK, {{c:defenseLost}} DEF, and {{c:accuracyLost}} ACC.'
+            },
+        ]
+    },
+    { // light saber
+        value: 'light( )?saber',
+        actions: [
+            {
+                action: 'randomChance',
+                chance: 5,
+                goto: {
+                    success: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: 'The force did not be with {{user}}.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'modifyStats',
+                who: 'opponent',
+                type: 'hp',
+                value: [-50, -1],
+                variable: 'hpLost'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} used the force to grab a ||toy|| lightsaber then whacked {{opponent}}.\n{{opponent}} lost {{c:hpLost}} HP.'
+            }
+        ]
+    },
+    { // slap
+        value: 'slap',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto: {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} slapped {{opponent}} and lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} attempted to slap {{opponent}} but missed.'
+            }
+        ]
+    },
+    { // explosion | explode
+        value: '(explosion|explode)',
+        actions: [
+            {
+                action: 'addMessage',
+                content: '🧨 INCOMING DYNAMITE!!!\n'
+            },
+            // Defines variables.
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [0, 0],
+                variable: 'userHpLost'
+            },
+            {
+                action: 'modifyStats',
+                who: 'opponent',
+                type: 'hp',
+                value: [0, 0],
+                variable: 'opponentHpLost'
+            },
+            // Random (user).
+            {
+                action: 'randomChance',
+                chance: 50,
+                goto: {
+                    success: 5
+                }
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [-10, -5],
+                variable: 'userHpLost'
+            },
+            // Random. (opponent)
+            {
+                action: 'randomChance',
+                chance: 50,
+                goto: {
+                    success: 7
+                }
+            },
+            {
+                action: 'modifyStats',
+                who: 'opponent',
+                type: 'hp',
+                value: [-10, -5],
+                variable: 'opponentHpLost'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} lost {{c:userHpLost}} HP, and {{opponent}} lost {{c:opponentHpLost}} HP.'
+            },
+        ]
+    },
+    { // pray
+        value: 'pray',
+        actions: [
+            {
+                action: 'randomChance',
+                chance: 50,
+                goto: {
+                    success: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} prayed... it seems like nothing happened?'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'randomChance',
+                chance: 20,
+                goto: {
+                    success: 6
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} prayed... and heard whispers from the sky.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'modifyStats',
+                who: 'user',
+                type: 'hp',
+                value: [1, 50],
+                variable: 'hpGained'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} was blessed by luck and gained {{c:hpGained}} HP.'
+            }
+        ]
+    },
+    { // shock
+        value: 'shock',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto: {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} shocked {{opponent}} and lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} attempted to shock {{opponent}} but failed.'
+            }
+        ]
+    },
+    { // electrify | electrified
+        value: 'electrif(y|ied)',
+        actions: [
+            {
+                action: 'damageOpponent',
+                type: 'userAttack',
+                variable: 'hpLost',
+                goto: {
+                    fail: 3
+                }
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} electrified {{opponent}} and lost {{c:hpLost}} HP.'
+            },
+            {
+                action: 'stop'
+            },
+            {
+                action: 'addMessage',
+                content: '{{user}} attempted to electrify {{opponent}} but failed.'
             }
         ]
     }

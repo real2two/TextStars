@@ -1295,7 +1295,7 @@ const unparsedPrompts = [
                 action: 'modifyStats',
                 who: 'opponent',
                 type: 'atk',
-                value: [-1, -3],
+                value: [-3, -1],
                 variable: 'attackLost'
             },
             {

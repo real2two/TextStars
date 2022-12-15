@@ -74,7 +74,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🥶 {{user}} tried to hug {{opponent}} but got rejected and lost {{c:hpLost}} HP.'
+                content: '💍 {{user}} tried to hug {{opponent}} but got rejected and lost {{c:hpLost}} HP.'
             }
         ]
     },
@@ -91,14 +91,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🗯️ {{user}} threw a snowball at {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '❄️ {{user}} threw a snowball at {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '💨 {{user}} tried to throw a snowball towards {{opponent}} but missed.'
+                content: '❄️ {{user}} tried to throw a snowball towards {{opponent}} but missed.'
             }
         ],
         prodigy: 1
@@ -116,14 +116,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🗯️ {{user}} threw stuff at {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '❄️ {{user}} threw stuff at {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '💨 {{user}} tried to throw stuff towards {{opponent}} but missed.'
+                content: '❄️ {{user}} tried to throw stuff towards {{opponent}} but missed.'
             }
         ]
     },
@@ -179,14 +179,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🫳 {{user}} yeeted {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '❄️ {{user}} yeeted {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '🫱 {{user}} failed to yeet {{opponent}}.'
+                content: '❄️ {{user}} failed to yeet {{opponent}}.'
             }
         ]
     },
@@ -256,7 +256,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🫗 {{user}} was drinking hotcoco too slowly, so {{opponent}} was able to deal {{c:hpLost}} HP.'
+                content: '☕ {{user}} was drinking hotcoco too slowly, so {{opponent}} was able to deal {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
@@ -385,7 +385,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '⚡ {{user}} charged up {{c:attackGained}} ATK.'
+                content: '❄️ {{user}} charged up {{c:attackGained}} ATK.'
             }
         ]
     },
@@ -578,7 +578,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🌑 Santa left you a gift! It looks black...'
+                content: '🎁 Santa left you a gift! It looks black...'
             },
             { action: 'stop' },
             {
@@ -617,7 +617,7 @@ const unparsedPrompts = [
         actions: [
             {
                 action: "addMessage",
-                content: "🤓 No."
+                content: "❄️ No."
             }
         ],
         prodigy: 1
@@ -634,7 +634,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🍭 {{user}} ate a sugarcane and gained {{c:attackGained}} ATK.'
+                content: '❄️ {{user}} ate a sugarcane and gained {{c:attackGained}} ATK.'
             }
         ]
     },
@@ -739,7 +739,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '✨ {{user}} self destructed.'
+                content: '💥 {{user}} self destructed.'
             },
         ]
     },
@@ -784,14 +784,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '👊 {{user}} punched {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '❄️ {{user}} punched {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '✊ {{user}} attempted to punched {{opponent}} but missed.'
+                content: '❄️ {{user}} attempted to punched {{opponent}} but missed.'
             }
         ]
     },
@@ -809,7 +809,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🦵 {{user}} kicked {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '🦶 {{user}} kicked {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
@@ -834,14 +834,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🗡️ {{user}} stabbed {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '🔪 {{user}} stabbed {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '🗡️ {{user}} attempted to stab {{opponent}} but missed.'
+                content: '🔪 {{user}} attempted to stab {{opponent}} but missed.'
             }
         ]
     },
@@ -909,21 +909,21 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '💀 {{user}} successfully killed {{opponent}}.'
+                content: '🔪 {{user}} successfully killed {{opponent}}.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '💀 {{user}} failed to kill {{opponent}} but managed to stab {{opponent}}.\n{{opponent}} lost {{c:hpLost}} HP.'
+                content: '🔪 {{user}} failed to kill {{opponent}} but managed to stab {{opponent}}.\n{{opponent}} lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '{{user}} failed to kill {{opponent}}. 💀'
+                content: '🔪 {{user}} failed to kill {{opponent}}.'
             }
         ]
     },
@@ -941,14 +941,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🐽 {{user}} bullied {{opponent}} and lost {{c:hpLost}} HP in EMOTIONAL DAMAGE.'
+                content: '❄️ {{user}} bullied {{opponent}} and lost {{c:hpLost}} HP in EMOTIONAL DAMAGE.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '🐷 {{user}} bullied {{opponent}} but {{opponent}} did not give a quack.'
+                content: '❄️ {{user}} bullied {{opponent}} but {{opponent}} did not give a quack.'
             }
         ]
     },
@@ -991,14 +991,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '👊 {{user}} beat up {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '❄️ {{user}} beat up {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '✊ {{user}} attempted to beat up {{opponent}} but failed.'
+                content: '❄️ {{user}} attempted to beat up {{opponent}} but failed.'
             }
         ]
     },
@@ -1064,7 +1064,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🫧 {{user}} drank something and gained {{c:accuracyGained}} ACC.'
+                content: '🍻 {{user}} drank something and gained {{c:accuracyGained}} ACC.'
             }
         ]
     },
@@ -1087,7 +1087,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🧎 {{user}} broke kneecaps and lost {{c:hpLost}} HP.'
+                content: '🦴 {{user}} broke kneecaps and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
@@ -1101,7 +1101,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🧎 {{opponent}} broke kneecaps and lost {{c:hpLost}} HP.'
+                content: '🦴 {{opponent}} broke kneecaps and lost {{c:hpLost}} HP.'
             },
         ]
     },
@@ -1143,14 +1143,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '👊 {{user}} hit {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '❄️ {{user}} hit {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '✊ {{user}} attempted to hit {{opponent}} but missed.'
+                content: '❄️ {{user}} attempted to hit {{opponent}} but missed.'
             }
         ]
     },
@@ -1234,7 +1234,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '📸 {{user}} flashbanged {{opponent}} and lost {{c:hpLost}} HP and {{c:accuracyLost}} ACC.'
+                content: '💥 {{user}} flashbanged {{opponent}} and lost {{c:hpLost}} HP and {{c:accuracyLost}} ACC.'
             }
         ]
     },
@@ -1277,14 +1277,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🟠 {{user}} threw a shuriken and {{opponent}} got hit losing {{c:hpLost}} HP.'
+                content: '卍 {{user}} threw a shuriken and {{opponent}} got hit losing {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '🟠 {{user}} threw a shuriken but missed.'
+                content: '卍 {{user}} threw a shuriken but missed.'
             }
         ]
     },
@@ -1369,7 +1369,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '💱 {{user}} gambled and won {{c:hpGained}} HP, {{c:attackGained}} ATK, {{c:defenseGained}} DEF, and {{c:accuracyGained}} ACC.'
+                content: '💰 {{user}} gambled and won {{c:hpGained}} HP, {{c:attackGained}} ATK, {{c:defenseGained}} DEF, and {{c:accuracyGained}} ACC.'
             },
             {
                 action: 'stop'
@@ -1404,7 +1404,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '💱 {{user}} gambled and lost {{c:hpLost}} HP, {{c:attackLost}} ATK, {{c:defenseLost}} DEF, and {{c:accuracyLost}} ACC.'
+                content: '💰 {{user}} gambled and lost {{c:hpLost}} HP, {{c:attackLost}} ATK, {{c:defenseLost}} DEF, and {{c:accuracyLost}} ACC.'
             },
         ]
     },
@@ -1420,7 +1420,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🔦 The force did not be with {{user}}.'
+                content: '💫 The force was not with {{user}}.'
             },
             {
                 action: 'stop'
@@ -1434,7 +1434,7 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🔦 {{user}} used the force to grab a ||toy|| lightsaber then whacked {{opponent}}.\n{{opponent}} lost {{c:hpLost}} HP.'
+                content: '💫 {{user}} used the force to grab a ||toy|| lightsaber then whacked {{opponent}}.\n{{opponent}} lost {{c:hpLost}} HP.'
             }
         ]
     },
@@ -1451,14 +1451,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '🫲 {{user}} slapped {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '❄️ {{user}} slapped {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '🫲 {{user}} attempted to slap {{opponent}} but missed.'
+                content: '❄️ {{user}} attempted to slap {{opponent}} but missed.'
             }
         ]
     },
@@ -1625,14 +1625,14 @@ const unparsedPrompts = [
             },
             {
                 action: 'addMessage',
-                content: '⛓️ {{user}} whipped {{opponent}} and lost {{c:hpLost}} HP.'
+                content: '❄️ {{user}} whipped {{opponent}} and lost {{c:hpLost}} HP.'
             },
             {
                 action: 'stop'
             },
             {
                 action: 'addMessage',
-                content: '⛓️ {{user}} attempted to whip {{opponent}} but missed.'
+                content: '❄️ {{user}} attempted to whip {{opponent}} but missed.'
             }
         ]
     },

@@ -2,7 +2,7 @@
 
 This bot was created for the SnowCodes event. https://www.snowcodes.org/
 
-The code itself was written in 3 days. (first two days being coding the bot, and third day being 2 bug fixes.)
+The code itself was written in 3 days on a school computer. This repository should *not* be used to assess my coding proficiency.
 
 This is *supposed* to be Christmas themed so here are some prompts you can use: `throw snowball`, `sugar rush`, `gingerbread`, `snowman`, `tree`, `christmas`, `gift`, `santa`, `sugar cane`, etc...
 
